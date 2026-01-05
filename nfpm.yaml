@@ -1,0 +1,15 @@
+printf "name: \"device-manager\"
+arch: \"amd64\"
+platform: \"linux\"
+version: \"1.0.0\"
+section: \"default\"
+priority: \"extra\"
+provides:
+  - device-manager
+contents:
+  - src: \"dist/device-manager\"
+    dst: \"/usr/bin/device-manager\"
+  - src: \"build/icons/linux/icon.png\"
+    dst: \"/usr/share/icons/hicolor/512x512/apps/device-manager.png\"
+  - src: \"device-manager.desktop\"
+    dst: \"/usr/share/applications/device-manager.desktop\"" > nfpm.yaml
