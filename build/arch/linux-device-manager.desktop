@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Linux Device Manager
+Comment=Device manager for Linux inspired by Windows 11
+Exec=linux-device-manager
+Icon=linux-device-manager
+Terminal=false
+Categories=System;Settings;HardwareSettings;
+Keywords=devices;hardware;manager;system;

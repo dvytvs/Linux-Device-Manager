@@ -1,0 +1,64 @@
+# Maintainer: dvytvs <https://github.com/dvytvs>
+pkgname=linux-device-manager
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Device Manager for Linux inspired by Windows 11"
+arch=('any')
+url="https://github.com/dvytvs/Linux-Device-Manager"
+license=('MIT')
+depends=('python' 'python-gobject' 'gtk3' 'libadwaita' 'pciutils' 'usbutils')
+optdepends=('ethtool: network device info'
+            'v4l-utils: webcam support')
+source=("${pkgname}-${pkgver}.tar.gz" "${pkgname}.install")
+sha256sums=('SKIP' 'SKIP')
+
+package() {
+    # Файлы в корне (без директории-обёртки)
+    
+    # Install main script
+    install -Dm755 device_manager.py "${pkgdir}/usr/share/${pkgname}/device_manager.py"
+    
+    # Install launcher
+    install -dm755 "${pkgdir}/usr/bin"
+    cat > "${pkgdir}/usr/bin/${pkgname}" << 'EOF'
+#!/usr/bin/env bash
+exec python3 /usr/share/linux-device-manager/device_manager.py "$@"
+EOF
+    chmod +x "${pkgdir}/usr/bin/${pkgname}"
+    
+    # Install desktop file (icon name matches file name without extension)
+    install -Dm644 linux-device-manager.desktop \
+        "${pkgdir}/usr/share/applications/linux-device-manager.desktop"
+    
+    # Install icon at multiple sizes
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/512x512/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/256x256/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/128x128/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/64x64/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/48x48/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/32x32/apps/linux-device-manager.png"
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/16x16/apps/linux-device-manager.png"
+    # Also install as SVG-scalable fallback
+    install -Dm644 build/icons/linux/icon.png \
+        "${pkgdir}/usr/share/icons/hicolor/scalable/apps/linux-device-manager.png"
+    
+    # Update icon cache on install
+    install -dm755 "${pkgdir}/usr/share/doc/${pkgname}"
+    install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
+
+post_install() {
+    gtk-update-icon-cache -q -t -f usr/share/icons/hicolor || true
+    update-desktop-database -q usr/share/applications || true
+}
+
+post_upgrade() {
+    post_install
+}

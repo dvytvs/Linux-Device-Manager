@@ -1,0 +1,36 @@
+id: com.dvytvs.device-manager
+runtime: org.gnome.Platform
+runtime-version: "47"
+sdk: org.gnome.Sdk
+command: linux-device-manager
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=/sys/class:ro
+  - --filesystem=/proc:ro
+  - --filesystem=/dev:ro
+  - --talk-name=org.freedesktop.Flatpak
+modules:
+  - name: pciutils
+    no-autogen: true
+    make-install-args:
+      - PREFIX=/app
+      - SHAREDIR=/app/share
+      - MANDIR=/app/share/man
+    sources:
+      - type: archive
+        url: https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.13.0.tar.xz
+        sha256: 77f11f78298502634d1af50308f15a5788629f6cf45cba376f5009aea4cb4926
+
+  - name: linux-device-manager
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 device_manager.py /app/bin/linux-device-manager
+      - install -Dm644 linux-device-manager.desktop /app/share/applications/com.dvytvs.device-manager.desktop
+      - install -Dm644 build/icons/linux/icon.png /app/share/icons/hicolor/512x512/apps/com.dvytvs.device-manager.png
+    sources:
+      - type: dir
+        path: ../..

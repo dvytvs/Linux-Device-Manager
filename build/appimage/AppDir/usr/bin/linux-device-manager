@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" || cd "$(dirname "$0")"
+exec python3 "$(dirname "$0")/device_manager.py" "$@"

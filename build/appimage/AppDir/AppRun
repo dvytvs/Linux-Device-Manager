@@ -1,0 +1,5 @@
+#!/bin/bash
+SELF="$(readlink -f "$0")"
+HERE="${SELF%/*}"
+export PYTHONPATH="${HERE}/usr/bin:${PYTHONPATH}"
+exec "${HERE}/usr/bin/python3" "${HERE}/usr/bin/device_manager.py" "$@"

@@ -1,0 +1,9 @@
+Package: linux-device-manager
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: python3, python3-gi, gir1.2-gtk-3.0, gir1.2-adw-1, pciutils, usbutils
+Maintainer: dvytvs <https://github.com/dvytvs>
+Description: Device Manager for Linux
+ A full-featured device manager for Linux inspired by Windows 11 Device Manager.

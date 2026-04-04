@@ -1,0 +1,49 @@
+name: linux-device-manager
+version: '1.0.0'
+summary: Device Manager for Linux
+description: |
+  A full-featured device manager for Linux inspired by Windows 11.
+  Scans and displays PCI, USB, network, disk, audio, and other devices.
+grade: stable
+confinement: strict
+base: core22
+
+parts:
+  device-manager:
+    plugin: dump
+    source: .
+    stage-packages:
+      - python3
+      - python3-gi
+      - python3-gi-cairo
+      - gir1.2-gtk-3.0
+      - gir1.2-adw-1
+      - pciutils
+      - usbutils
+    organize:
+      device_manager.py: bin/device_manager.py
+      run.sh: bin/run.sh
+
+  icon:
+    plugin: dump
+    source: build/icons/linux/
+    organize:
+      icon.png: usr/share/icons/hicolor/512x512/apps/linux-device-manager.png
+
+  desktop-file:
+    plugin: dump
+    source: .
+    organize:
+      linux-device-manager.desktop: usr/share/applications/linux-device-manager.desktop
+
+apps:
+  linux-device-manager:
+    command: bin/run.sh
+    desktop: usr/share/applications/linux-device-manager.desktop
+    plugs:
+      - hardware-observe
+      - mount-observe
+      - network-observe
+      - system-observe
+      - wayland
+      - x11
