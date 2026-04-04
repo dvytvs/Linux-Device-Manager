@@ -17,7 +17,7 @@ modules:
     buildsystem: simple
     build-commands:
       - install -Dm755 device_manager.py /app/bin/linux-device-manager
-      - install -Dm644 com.dvytvs.device-manager.desktop /app/share/applications/com.dvytvs.device-manager.desktop
+      - install -Dm644 linux-device-manager.desktop /app/share/applications/linux-device-manager.desktop
       - install -Dm644 build/icons/linux/icon.png /app/share/icons/hicolor/512x512/apps/linux-device-manager.png
     sources:
       - type: dir

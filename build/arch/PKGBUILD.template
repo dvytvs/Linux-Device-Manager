@@ -27,8 +27,8 @@ EOF
     chmod +x "${pkgdir}/usr/bin/${pkgname}"
     
     # Install desktop file (icon name matches file name without extension)
-    install -Dm644 com.dvytvs.device-manager.desktop \
-        "${pkgdir}/usr/share/applications/com.dvytvs.device-manager.desktop"
+    install -Dm644 linux-device-manager.desktop \
+        "${pkgdir}/usr/share/applications/linux-device-manager.desktop"
     
     # Install icon at multiple sizes
     install -Dm644 build/icons/linux/icon.png \
