@@ -57,7 +57,24 @@
       "Bash(fi)",
       "Bash(file *)",
       "Bash(grep *)",
-      "Bash(wget *)"
+      "Bash(wget *)",
+      "Bash(id: *)",
+      "Bash(runtime: *)",
+      "Bash(runtime-version: *)",
+      "Bash(sdk: *)",
+      "Bash(command: *)",
+      "Bash(finish-args:)",
+      "Bash(- *)",
+      "Bash(modules:)",
+      "Bash(buildsystem: *)",
+      "Bash(build-commands:)",
+      "Bash(sources:)",
+      "Bash(path: *)",
+      "Bash(mv *)",
+      "Bash(sed *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   },
   "$version": 3

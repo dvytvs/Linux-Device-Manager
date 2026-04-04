@@ -48,7 +48,7 @@ echo ">> [1/7] Создание tar.gz..."
 TAR_GZ="$BUILD_DIR/${APPNAME}-${VERSION}.tar.gz"
 tar czf "$TAR_GZ" -C "$PROJECT_DIR" \
     device_manager.py run.sh README.md requirements.txt \
-    linux-device-manager.desktop \
+    com.dvytvs.device-manager.desktop \
     build/icons/linux/icon.png
 echo "   ✓ ${APPNAME}-${VERSION}.tar.gz"
 
@@ -61,7 +61,7 @@ TAR_ZST="$BUILD_DIR/${APPNAME}-${VERSION}.tar.zst"
 if command -v zstd &>/dev/null; then
     tar cf - -C "$PROJECT_DIR" \
         device_manager.py run.sh README.md requirements.txt \
-        linux-device-manager.desktop \
+        com.dvytvs.device-manager.desktop \
         build/icons/linux/icon.png | zstd -c > "$TAR_ZST"
     echo "   ✓ ${APPNAME}-${VERSION}.tar.zst"
 else
@@ -79,7 +79,7 @@ cp "$BUILD_DIR/arch/PKGBUILD.template" "$BUILD_DIR/arch/PKGBUILD"
 SRC_ARCH="$BUILD_DIR/arch/${APPNAME}-${VERSION}.tar.gz"
 tar czf "$SRC_ARCH" -C "$PROJECT_DIR" \
     device_manager.py run.sh README.md requirements.txt \
-    linux-device-manager.desktop \
+    com.dvytvs.device-manager.desktop \
     build/icons/linux/icon.png
 
 # Сборка через makepkg
@@ -110,7 +110,7 @@ mkdir -p "$APPIMAGE_DIR/usr/share/icons/hicolor/512x512/apps"
 
 cp "$PKG_DIR/usr/bin/$APPNAME" "$APPIMAGE_DIR/usr/bin/"
 cp "$PKG_DIR/usr/share/$APPNAME/device_manager.py" "$APPIMAGE_DIR/usr/bin/"
-cp "$BUILD_DIR/appimage/linux-device-manager.desktop" "$APPIMAGE_DIR/usr/share/applications/"
+cp "$BUILD_DIR/appimage/com.dvytvs.device-manager.desktop" "$APPIMAGE_DIR/usr/share/applications/"
 cp "$BUILD_DIR/appimage/linux-device-manager.png" "$APPIMAGE_DIR/usr/share/icons/hicolor/512x512/apps/"
 cp "$BUILD_DIR/appimage/linux-device-manager.png" "$APPIMAGE_DIR/linux-device-manager.png"
 
@@ -129,10 +129,10 @@ chmod +x "$APPIMAGE_DIR/AppRun"
 if command -v linuxdeploy &>/dev/null; then
     APPIMAGE_OUT="$BUILD_DIR/${APPNAME}-${VERSION}-x86_64.AppImage"
     linuxdeploy --appdir="$APPIMAGE_DIR" \
-        --desktop-file="$APPIMAGE_DIR/usr/share/applications/linux-device-manager.desktop" \
+        --desktop-file="$APPIMAGE_DIR/usr/share/applications/com.dvytvs.device-manager.desktop" \
         --icon-file="$APPIMAGE_DIR/usr/share/icons/hicolor/512x512/apps/linux-device-manager.png" \
         --output=appimage \
-        -d "$APPIMAGE_DIR/usr/share/applications/linux-device-manager.desktop" \
+        -d "$APPIMAGE_DIR/usr/share/applications/com.dvytvs.device-manager.desktop" \
         --executable="$APPIMAGE_DIR/usr/bin/device_manager.py" || true
     echo "   ✓ AppImage создан"
 else
@@ -222,7 +222,7 @@ chmod +x "$DEB_DIR/DEBIAN/postinst"
 # Files
 cp "$PKG_DIR/usr/bin/$APPNAME" "$DEB_DIR/usr/bin/"
 cp "$PKG_DIR/usr/share/$APPNAME/device_manager.py" "$DEB_DIR/usr/share/$APPNAME/"
-cp "$BUILD_DIR/pkg/usr/share/applications/linux-device-manager.desktop" "$DEB_DIR/usr/share/applications/"
+cp "$BUILD_DIR/pkg/usr/share/applications/com.dvytvs.device-manager.desktop" "$DEB_DIR/usr/share/applications/"
 cp "$BUILD_DIR/pkg/usr/share/icons/hicolor/512x512/apps/linux-device-manager.png" "$DEB_DIR/usr/share/icons/hicolor/512x512/apps/"
 
 DEB_OUT="$BUILD_DIR/${APPNAME}-${VERSION}-amd64.deb"
@@ -248,7 +248,7 @@ RPM_SRC="$RPM_DIR/SOURCES"
 mkdir -p "$RPM_SRC"
 tar czf "$RPM_SRC/${APPNAME}-${VERSION}.tar.gz" -C "$PROJECT_DIR" \
     device_manager.py run.sh README.md requirements.txt \
-    linux-device-manager.desktop \
+    com.dvytvs.device-manager.desktop \
     build/icons/linux/icon.png
 
 cat > "$SPEC" << EOF
@@ -290,7 +290,7 @@ exec python3 %{_datadir}/%{name}/device_manager.py "\$@"
 EOFSCRIPT
 chmod +x %{buildroot}%{_bindir}/%{name}
 
-cp linux-device-manager.desktop %{buildroot}%{_datadir}/applications/
+cp com.dvytvs.device-manager.desktop %{buildroot}%{_datadir}/applications/
 cp build/icons/linux/icon.png %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 
 %files

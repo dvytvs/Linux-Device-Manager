@@ -12,19 +12,7 @@ finish-args:
   - --filesystem=/sys/class:ro
   - --filesystem=/proc:ro
   - --filesystem=/dev:ro
-  - --talk-name=org.freedesktop.Flatpak
 modules:
-  - name: pciutils
-    no-autogen: true
-    make-install-args:
-      - PREFIX=/app
-      - SHAREDIR=/app/share
-      - MANDIR=/app/share/man
-    sources:
-      - type: archive
-        url: https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.13.0.tar.xz
-        sha256: 77f11f78298502634d1af50308f15a5788629f6cf45cba376f5009aea4cb4926
-
   - name: linux-device-manager
     buildsystem: simple
     build-commands:
